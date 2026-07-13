@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 from typing import List, Dict, Any, Optional
 
 class TransactionInput(BaseModel):
@@ -12,8 +12,8 @@ class TransactionInput(BaseModel):
     oldbalanceDest: float = Field(..., description="Recipient balance before transaction", ge=0)
     newbalanceDest: float = Field(..., description="Recipient balance after transaction", ge=0)
 
-    class Config:
-        json_schema_extra = {
+    model_config = ConfigDict(
+        json_schema_extra={
             "example": {
                 "step": 1,
                 "type": "TRANSFER",
@@ -23,9 +23,10 @@ class TransactionInput(BaseModel):
                 "newbalanceOrig": 0.0,
                 "nameDest": "C553264065",
                 "oldbalanceDest": 0.0,
-                "newbalanceDest": 0.0
+                "newbalanceDest": 0.0,
             }
         }
+    )
 
 class PredictResponse(BaseModel):
     is_fraud: bool = Field(..., description="Whether the transaction is predicted as fraud")

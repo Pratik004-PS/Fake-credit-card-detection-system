@@ -13,14 +13,14 @@ pip-delete-this-directory.txt
 # Jupyter Notebooks
 .ipynb_checkpoints/
 
-# Data and Models
+# Data (large raw files excluded — use Git LFS or cloud storage for production)
 data/raw/*.csv
 data/processed/*.csv
 data/processed/*.joblib
-artifacts/models/*.joblib
-artifacts/evaluation/*.png
-artifacts/evaluation/*.csv
-artifacts/evaluation/*.json
+
+# NOTE: artifacts/models and artifacts/evaluation are intentionally tracked
+# so that Render and Docker deployments can load pre-trained models.
+# Do NOT add joblib/png/json exclusions here.
 
 # MLflow
 mlruns/
