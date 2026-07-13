@@ -1,0 +1,35 @@
+services:
+  # 1. FastAPI Backend API
+  - type: web
+    name: fake-credit-card-api
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn api.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: PYTHONPATH
+        value: /opt/render/project/src
+      - key: LOG_LEVEL
+        value: INFO
+      - key: CONFIG_PATH
+        value: config/config.yaml
+
+  # 2. Streamlit Frontend Dashboard
+  - type: web
+    name: fake-credit-card-dashboard
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: streamlit run dashboard/app.py --server.port $PORT --server.address 0.0.0.0
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: PYTHONPATH
+        value: /opt/render/project/src
+      - key: API_URL
+        fromService:
+          name: fake-credit-card-api
+          type: web
+          property: url
