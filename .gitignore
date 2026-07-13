@@ -31,7 +31,7 @@ logs/*.log
 *.log
 
 # Environment variables
-.env
+# .env
 
 # Testing & Type checking
 .pytest_cache/
