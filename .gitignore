@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+
+# Data and Models
+data/raw/*.csv
+data/processed/*.csv
+data/processed/*.joblib
+artifacts/models/*.joblib
+artifacts/evaluation/*.png
+artifacts/evaluation/*.csv
+artifacts/evaluation/*.json
+
+# MLflow
+mlruns/
+mlflow.db
+
+# Logs
+logs/*.log
+*.log
+
+# Environment variables
+.env
+
+# Testing & Type checking
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo

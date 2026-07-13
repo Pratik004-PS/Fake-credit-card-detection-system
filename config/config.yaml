@@ -1,0 +1,77 @@
+# Config file for Enterprise Financial Fraud Detection System
+
+data:
+  raw_dir: "data/raw"
+  processed_dir: "data/processed"
+  dataset_name: "paysim.csv"
+  test_size: 0.2
+  random_state: 42
+  sample_size: 300000  # Default stratified downsample size for development/training (prevent OOM)
+  use_full_dataset: false
+
+features:
+  target: "isFraud"
+  categorical:
+    - "type"
+  numeric:
+    - "amount"
+    - "oldbalanceOrg"
+    - "newbalanceOrig"
+    - "oldbalanceDest"
+    - "newbalanceDest"
+    - "step"
+  drop_cols:
+    - "nameOrig"
+    - "nameDest"
+    - "isFlaggedFraud"
+
+models:
+  imbalance_strategy: "smote" # Choose from: 'original', 'smote', 'smoteenn', 'rus', 'class_weights'
+  cv_splits: 5
+  artifact_dir: "artifacts/models"
+  evaluation_dir: "artifacts/evaluation"
+  saved_preprocessor: "preprocessor.joblib"
+  saved_model: "best_model.joblib"
+  
+  logistic_regression:
+    max_iter: 1000
+    solver: "lbfgs"
+    
+  random_forest:
+    n_estimators: 100
+    max_depth: 10
+    random_state: 42
+    n_jobs: -1
+    
+  xgboost:
+    n_estimators: 200
+    max_depth: 6
+    learning_rate: 0.1
+    eval_metric: "logloss"
+    random_state: 42
+    n_jobs: -1
+    
+  lightgbm:
+    n_estimators: 200
+    max_depth: 6
+    learning_rate: 0.1
+    random_state: 42
+    n_jobs: -1
+    verbose: -1
+    
+  catboost:
+    iterations: 200
+    depth: 6
+    learning_rate: 0.1
+    random_state: 42
+    verbose: 0
+
+api:
+  host: "0.0.0.0"
+  port: 8000
+  title: "Financial Fraud Detection API"
+  version: "1.0.0"
+
+mlflow:
+  experiment_name: "financial_fraud_detection"
+  tracking_uri: "sqlite:///mlflow.db"

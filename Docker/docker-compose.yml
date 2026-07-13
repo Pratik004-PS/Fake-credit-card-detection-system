@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: ../
+      dockerfile: Docker/Dockerfile.api
+    container_name: fraud_detection_api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ../logs:/app/logs
+      - ../artifacts:/app/artifacts
+    environment:
+      - LOG_LEVEL=INFO
+      - MLFLOW_TRACKING_URI=mlruns
+    restart: always
+
+  dashboard:
+    build:
+      context: ../
+      dockerfile: Docker/Dockerfile.dashboard
+    container_name: fraud_detection_dashboard
+    ports:
+      - "8501:8501"
+    environment:
+      - API_URL=http://api:8000
+    depends_on:
+      - api
+    restart: always
