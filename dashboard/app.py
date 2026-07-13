@@ -99,7 +99,7 @@ def load_config(config_path: str = "config/config.yaml") -> dict:
         return yaml.safe_load(f)
 
 config = load_config()
-API_URL = "http://localhost:8000"
+API_URL = os.getenv("API_URL", "http://localhost:8000")
 
 # Main Navigation Sidebar
 st.sidebar.image("https://img.icons8.com/color/120/shield-with-crown.png", width=60)
