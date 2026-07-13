@@ -32,4 +32,4 @@ services:
         fromService:
           name: fake-credit-card-api
           type: web
-          property: url
+          property: hostport
