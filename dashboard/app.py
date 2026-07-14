@@ -99,7 +99,7 @@ def load_config(config_path: str = "config/config.yaml") -> dict:
         return yaml.safe_load(f)
 
 config = load_config()
-API_URL = os.getenv("API_URL", "http://localhost:8000")
+API_URL = os.getenv("API_URL", "http://localhost:8000").rstrip("/")
 if not API_URL.startswith("http://") and not API_URL.startswith("https://"):
     API_URL = f"http://{API_URL}"
 
@@ -124,6 +124,17 @@ page = st.sidebar.selectbox(
 
 st.sidebar.markdown("---")
 st.sidebar.info("🤖 **Antigravity AI Fraud System**\nVersion 1.0.0")
+
+# --- DEBUG SIDEBAR ---
+st.sidebar.markdown("---")
+st.sidebar.markdown("### 🔍 API Debug Console")
+st.sidebar.text(f"URL: {API_URL}")
+try:
+    debug_res = requests.get(f"{API_URL}/")
+    st.sidebar.text(f"HTTP Status: {debug_res.status_code}")
+    st.sidebar.json(debug_res.json())
+except Exception as debug_err:
+    st.sidebar.text(f"Connection Error:\n{str(debug_err)}")
 
 # --- NAVIGATION ROUTING ---
 
