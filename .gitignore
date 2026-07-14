@@ -31,7 +31,14 @@ logs/*.log
 *.log
 
 # Environment variables
-# .env
+.env
+
+# Individual baseline model files (only best_model.joblib and preprocessor.joblib are tracked)
+artifacts/models/catboost.joblib
+artifacts/models/lightgbm.joblib
+artifacts/models/logistic_regression.joblib
+artifacts/models/random_forest.joblib
+artifacts/models/xgboost.joblib
 
 # Testing & Type checking
 .pytest_cache/

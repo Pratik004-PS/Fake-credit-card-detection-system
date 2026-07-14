@@ -8,7 +8,6 @@ import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
 import streamlit as st
-from PIL import Image
 
 # Set up page configurations
 st.set_page_config(
@@ -130,7 +129,7 @@ st.sidebar.markdown("---")
 st.sidebar.markdown("### 🔍 API Debug Console")
 st.sidebar.text(f"URL: {API_URL}")
 try:
-    debug_res = requests.get(f"{API_URL}/")
+    debug_res = requests.get(f"{API_URL}/", timeout=3)
     st.sidebar.text(f"HTTP Status: {debug_res.status_code}")
     st.sidebar.json(debug_res.json())
 except Exception as debug_err:
@@ -152,7 +151,7 @@ if page == "Dashboard Overview":
         r = requests.get(f"{API_URL}/")
         if r.status_code == 200:
             api_online = True
-    except:
+    except Exception:
         pass
         
     # KPI metrics section
@@ -177,7 +176,7 @@ if page == "Dashboard Overview":
         if api_online:
             try:
                 model_name = r.json().get("model_name", "Not Loaded")
-            except:
+            except Exception:
                 pass
         st.markdown(f"""
         <div class="kpi-card" style="border-left-color: #2196f3;">
@@ -193,7 +192,7 @@ if page == "Dashboard Overview":
         if api_online:
             try:
                 threshold = r.json().get("decision_threshold", 0.5)
-            except:
+            except Exception:
                 pass
         st.markdown(f"""
         <div class="kpi-card" style="border-left-color: #ff9800;">
