@@ -104,8 +104,8 @@ if not API_URL.startswith("http://") and not API_URL.startswith("https://"):
     API_URL = f"http://{API_URL}"
 
 # Main Navigation Sidebar
-st.sidebar.image("https://img.icons8.com/color/120/shield-with-crown.png", width=60)
-st.sidebar.markdown("<h2 style='color: white;'>FinShield Platform</h2>", unsafe_allow_html=True)
+st.sidebar.markdown("<div style='text-align: center; font-size: 3rem; margin-bottom: 10px;'>🛡️</div>", unsafe_allow_html=True)
+st.sidebar.markdown("<h2 style='color: white; text-align: center;'>FinShield Platform</h2>", unsafe_allow_html=True)
 st.sidebar.markdown("---")
 
 page = st.sidebar.selectbox(
